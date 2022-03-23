@@ -1,0 +1,79 @@
+<div class="col-md-12 mx-auto">
+
+    <div class="card-body" *ngIf="show==false">
+      <table class="table table-dark table-bordered table-hove" *ngIf="taches.length!=0">
+        <thead>
+        <th>Intitule tache</th>
+        <th>Date début</th>
+        <th>Date fin</th>
+        <th>Volume horauire</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of taches">
+          <td>{{c.intitule}}</td>
+          <td>{{c.dateDebutT}}</td>
+          <td>{{c.dateFinT}}</td>
+          <td>{{c.vhTache}}(Heurs)</td>
+          <td>
+
+            <button class="btn btn-info " (click)="edit(c.intitule)"><i class="fa fa-edit"> Edit</i></button>
+            <button class="btn btn-danger "(click)="delete(c.idTache)" ><i class="fa fa-trash"> Delete</i></button>
+          </td>
+
+        </tr>
+
+        </tbody>
+      </table>
+      <table class="table table-dark table-bordered table-hove" *ngIf="taches.length==0">
+        <thead>
+        <th>Intitule tache</th>
+        <th>Date début</th>
+        <th>Date fin</th>
+        <th>Volume horauire</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td colspan="5">n'existe aucune tache veuillez accéder à l'espace projet pour ajouter les taches associés à un projet</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  <div class="card text-center" *ngIf="show==true">
+    <div class="card-header bg-dark" style="color: white">Modifier la tache</div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="intit" class="col-sm-2 col-form-label col-form-label-sm">intitule de tache:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-sm" id="intit" placeholder="intitule de tache" [(ngModel)]="tache.intitule">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dd" class="col-sm-2 col-form-label col-form-label-sm" >Date debut:</label>
+        <div class="col-sm-10">
+          <input type="Date" class="form-control form-control-sm" id="dd" [(ngModel)]="tache.dateDebutT">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="df" class="col-sm-2 col-form-label col-form-label-sm" >Date fin:</label>
+        <div class="col-sm-10">
+          <input type="Date" class="form-control form-control-sm" id="df"[(ngModel)]="tache.dateFinT" >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="vh" class="col-sm-2 col-form-label col-form-label-sm">volume d'heuraire:</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control form-control-sm" id="vh" placeholder="volume d'heuraire de tache"  [(ngModel)]="tache.vhTache" >
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted ">
+      <button  class="btn btn-warning btn-block " (click)="update()"><i class="fa fa-refresh"></i> update</button>
+    </div>
+  </div>
+
+  </div>
+
+

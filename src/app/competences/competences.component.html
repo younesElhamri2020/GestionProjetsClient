@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 mx-auto">
+      <h4>Liste Competences</h4>
+    </div>
+    <div class="col-md-3 mx-auto text-right">
+      <button class="btn btn-dark btn-sm" (click)="showForm = !showForm"><i class="fa fa-plus"></i> Nouvelle Competence</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="showForm">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header  bg-success">
+          Ajouter une Competence
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="designation"> Description</label>
+            <input  id="designation" type="text" class="form-control" [(ngModel)]="competence.designation">
+          </div>
+        </div>
+        <div class="card-footer">
+          <button *ngIf="!editForm" class="btn btn-success btn-block " (click)="save()"><i class="fa fa-send"></i> Save</button>
+          <button *ngIf="editForm" class="btn btn-warning btn-block " (click)="update()"><i class="fa fa-refresh"></i> Update</button>
+        </div>
+      </div>
+
+    </div>
+  </div><br>
+  <div class="row"  *ngIf="!showForm">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-footer bg-success">
+          <div class="input-group md-form form-sm form-1 pl-0 bg-success">
+            <div class="input-group-prepend bg-success">
+                  <span class="input-group-text purple lighten-3 bg-success" id="basic-text1">
+                    <i class="fa fa-search text-white" aria-hidden="true"></i>
+                  </span>
+            </div>
+            <input  (keyup)="search()" id="search" name="search" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search"  [(ngModel)]="competence.designation">
+          </div>
+        </div>
+        <div class="card-body" >
+          <table class="table table-dark table-bordered table-hove" *ngIf="competencesR.length!=0">
+            <thead>
+            <th><i class="fa fa-info-circle"></i> Description des competences</th>
+            <th><i class="fa fa-check"></i> Action</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let c of competencesR ">
+              <td>{{c.designation}}</td>
+              <td>
+                <button class="btn btn-info " (click)="edit(c)" ><i class="fa fa-edit"> </i></button>
+                <button class="btn btn-danger " (click)="delete(c.idCompetence)"><i class="fa fa-trash"> </i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table table-dark table-bordered table-hove" *ngIf="competencesR.length==0">
+            <thead>
+            <th><i class="fa fa-info-circle"></i> Description des competences</th>
+            <th><i class="fa fa-check"></i> Actions</th>
+            </thead>
+            <tbody>
+            <tr>
+              <td  colspan="2" style="text-align: center">n'existe aucune competence cliquer sur nouvelle compétence pour ajouter des compétences</td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

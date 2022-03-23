@@ -1,0 +1,194 @@
+<div class="container">
+  <div class="col-md-12 mx-auto">
+  <div class="row" *ngIf="nouveau==false">
+    <div class="col-md-9 mx-auto">
+      <h4>Liste Projets</h4>
+    </div>
+    <div class="col-md-3 mx-auto text-right">
+      <button class="btn btn-dark btn-sm" (click)="showForm = !showForm && nouveau=!nouveau" >
+        <i class="fa fa-plus"></i> Nouveau projet
+      </button>
+    </div>
+  </div>
+  </div>
+  <div class="row" *ngIf="showForm">
+    <div class="col-md-10 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          Ajouter un Projet
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label for="IntituleP"> Intitule Projet :</label>
+            <input name="label" id="IntituleP" type="text" class="form-control" [(ngModel)]="projet.intituleP">
+          </div>
+          <div class="form-group">
+            <label for="Dated">Date debut :</label>
+            <input name="label" id="Dated" type="Date" class="form-control" [(ngModel)]="projet.dateDebutP">
+          </div>
+          <div class="form-group">
+            <label for="Datef"> Date fin :</label>
+            <input name="label" id="Datef" type="Date" class="form-control" [(ngModel)]="projet.dateFinP">
+          </div>
+          <div class="form-group">
+            <label for="nbCollaborateur"> Nomber collaboratteur:</label>
+            <input name="label" id="nbCollaborateur" type="number" class="form-control" [(ngModel)]="projet.nbrCollaborateur">
+          </div>
+          <div class="card text-center">
+            <div class="card-header bg-info">les taches associés au projet</div>
+            <div class="card-body">
+              <div class="form-group row">
+                <label for="intit" class="col-sm-2 col-form-label col-form-label-sm">intitule de tache:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="intit" placeholder="intitule de tache" [(ngModel)]="tache.intitule">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="dd" class="col-sm-2 col-form-label col-form-label-sm">Date debut:</label>
+                <div class="col-sm-10">
+                  <input type="Date" class="form-control form-control-sm" id="dd"  [(ngModel)]="tache.dateDebutT">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="df" class="col-sm-2 col-form-label col-form-label-sm">Date fin:</label>
+                <div class="col-sm-10">
+                  <input type="Date" class="form-control form-control-sm" id="df"   [(ngModel)]="tache.dateFinT">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="vh" class="col-sm-2 col-form-label col-form-label-sm">volume d'heuraire:</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control form-control-sm" id="vh" placeholder="volume d'heuraire de tache"  [(ngModel)]="tache.vhTache">
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header bg-warning">
+                  <i class="fa fa-check-circle-o"></i> Choisir les competences de tache
+                </div>
+                <div class="card-body">
+                  <div class="form-group" >
+                    <div class="row ">
+                      <div class="col-md-6 mx-auto " >
+                        <ul class="list-group">
+                          <li *ngFor="let m of competences" class="list-group-item d-flex justify-content-between align-items-center ">
+                            {{m.designation}}
+                            <button  class="btn btn-dark bnt-sm" (click)="addListeCompetence(m.designation)" >
+                              <i class="fa fa-plus-circle"></i>
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-warning">
+                  <div class="card text-center col-md-9 mx-auto bg-warning" *ngIf="tache.competences.length!=0">
+                    <div class="card-body ">
+                      <h5 class="card-title">listes des comptences choisies</h5>
+                      <table class="table table-dark table-bordered table-hover">
+                        <thead>
+                        <th>competence</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of tache.competences">
+                          <td>{{c.designation}}</td>
+                          <td>
+                            <button class="btn btn-warning" (click)="TaskasAnulle(c.designation)" ><i class="fa fa-remove"></i></button>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-muted bg-info">
+              <button  class="btn btn-info btn-block " (click)="addTache()" [disabled]="!validateaddTache()"><i class="fa fa-send-o"></i> Sauvgarder la tache</button>
+            </div>
+          </div>
+          <div class="card text-center" *ngIf="projet.taches.length!=0">
+            <div class="card-body">
+              <h5 class="card-title">liste des Taches </h5>
+              <table class="table table-dark table-bordered table-hove">
+                <thead>
+                <th>intitule de tache </th>
+                <th>Date Debut</th>
+                <th>Date Fin</th>
+                <th>volume d'heuraire</th>
+                <th>Action</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let c of projet.taches ">
+                  <td>{{c.intitule}}</td>
+                  <td>{{c.dateDebutT}}</td>
+                  <td>{{c.dateFinT}}</td>
+                  <td>{{c.vhTache}}</td>
+                  <td>
+                    <button class="btn btn-info " ><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger " ><i class="fa fa-remove"></i></button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer text-muted">
+              Volume d'horaire:{{projet.vhProjet}}
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button  class="btn btn-success btn-block " (click)="save()" [disabled]="!validatesave()"><i class="fa fa-send-o"></i> Sauvgarder le projet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row" *ngIf="!showForm">
+      <div class="col-md-12 mx-auto">
+
+        <div class="card-body">
+          <table class="table table-dark table-bordered table-hove" *ngIf="projets.length!=0">
+            <thead>
+            <th><i class="fa fa-dashboard"></i> Intitule de projet</th>
+            <th><i class="fa fa-calendar-plus-o"></i> Date Debut</th>
+            <th><i class="fa fa-calendar-times-o "></i> Date Fin</th>
+            <th><i class="fa fa-user-secret "></i> Nombre Collaborateurs</th>
+            <th><i class="fa fa-clock-o "> </i>Volume d'heuraire</th>
+            <th><i class="fa fa-check-circle-o"></i> Actions</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let c of projets ">
+              <td>{{c.intituleP}}</td>
+              <td>{{c.dateDebutP}}</td>
+              <td>{{c.dateFinP}}</td>
+              <td>{{c.nbrCollaborateur}} (Colaborateur)</td>
+              <td>{{c.vhProjet}} (H)</td>
+              <td>
+                <button class="btn btn-info " ><i class="fa fa-edit"></i></button>
+                <button class="btn btn-danger " (click)="delete(c.intituleP)" ><i class="fa fa-remove"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table table-dark table-bordered table-hove" *ngIf="projets.length==0">
+            <thead>
+            <th><i class="fa fa-dashboard"></i> Intitule de projet</th>
+            <th><i class="fa fa-calendar-plus-o"></i> Date Debut</th>
+            <th><i class="fa fa-calendar-times-o "></i> Date Fin</th>
+            <th>Nombre Collaborateur</th>
+            <th><i class="fa fa-clock-o "> </i>Volume d'heuraire</th>
+            <th><i class="fa fa-check-circle-o"></i> Actions</th>
+            </thead>
+            <tbody>
+            <tr>
+              <td colspan="6" style="text-align: center">n'existe aucun projet cliquer sur nouveau projet pour ajouter des projets</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+</div>
+</div>

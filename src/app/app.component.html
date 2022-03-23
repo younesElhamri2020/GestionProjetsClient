@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-success  fixed-top">
+  <a class="navbar-brand" href="#"> <img [src]="logo" alt="" height="50"
+                                         style="border-radius: 100%;"> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link"routerLink="/acceuil"><i class="fa fa-home"></i>Acceuil<span class="sr-only">(current)</span></a>
+      </li>
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" routerLink="/competence"><i class="fa fa-university "></i> Competences<span class="sr-only">(current)</span></a>
+      </li>
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" routerLink="/collaborateurs"><i class="fa fa-user-circle"></i> Collaborateurs<span class="sr-only">(current)</span></a>
+      </li>
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" routerLink="/projets" ><i class="fa fa-pinterest"></i> Projets<span class="sr-only">(current)</span></a>
+      </li>
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" routerLink="/taches"><i class="fa fa-book"></i> Taches<span class="sr-only">(current)</span></a>
+      </li>
+
+      <li routerLinkActive="nav-item active">
+        <a class="nav-link" routerLink="/affectation"><i class="fa fa-level-up "></i> Affectation<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+<div class="container">
+<div><br><br> <br> <br></div>
+  <router-outlet></router-outlet>
+</div>
+<!--<footer class="page-footer font-small  unique-color-dark  bg-success ">
+
+  <div class="container">
+
+    <ul class="list-unstyled list-inline text-center py-2">
+      <li class="list-inline-item">
+        <h5 class="mb-1">Gestion Projets</h5>
+        <h6 style="color: white">© 2020 ISI:FSSM</h6>
+
+      </li>
+
+    </ul>
+
+
+  </div>
+</footer> -->
+<!-- Footer -->

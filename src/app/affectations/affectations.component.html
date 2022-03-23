@@ -1,0 +1,135 @@
+<div class="row" *ngIf="!klik">
+  <div class="col-md-8 mx-auto">
+    <h5 class="card-title">La liste des Projets</h5>
+  </div>
+</div>
+<div class="row" *ngIf="!klik">
+  <div class="col-md-10 mx-auto">
+<div class="card-body " >
+  <table class="table table-dark table-bordered table-hove col-md-10 mx-auto" *ngIf="projets.length!=0">
+    <thead>
+    <th>Intitule Projet</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of projets">
+      <td>{{c.intituleP}}</td>
+      <td>
+        <button class="btn btn-warning btn-outline-dark btn-block " (click)="findByIdProjet(c.idProjet,c.intituleP)"  ><i class="fa fa-5x"></i>Details</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table class="table table-dark table-bordered table-hove col-md-10 mx-auto" *ngIf="projets.length==0">
+    <thead>
+    <th>Intitule Projet</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    <tr>
+      <td colspan="2" style="text-align: center">n'existe aucune tache pour faire des affectations veuillez d'abord ajouter des projets avec les taches associés</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+</div>
+<div class="col-md-10 mx-auto">
+<div class="card-body " *ngIf="klik==true && klikk==false">
+  <h5 class="card-title"><span class="btn btn-success">Liste des taches associers au projet {{proj}}</span></h5>
+  <table class="table table-dark table-bordered table-hove">
+    <thead>
+    <th>Intitule Tache</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of taches">
+      <td>{{c.intitule}}</td>
+      <td>
+        <button class="btn btn-warning btn-outline-dark btn-block " (click)="findcollcomptache(c.idTache,c.intitule)"><i class="fa fa-5x"></i>Affectation</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<div class="col-md-9 mx-auto">
+<div class="alert alert-success" *ngIf="resultat==true && result==1">L'affection est bien enregistré</div>
+<div class="card" *ngIf="t==true" >
+  <div class="card-header" >
+    Affectation des collaborateurs à la tache
+  </div>
+  <div class="card-body" >
+    <div class="form-group">
+      <label for="v2">Tache </label>
+      <input name="label" id="v2" type="text" class="form-control" [value]="intitule" disabled >
+    </div>
+    <div class="form-group">
+      <label for="inputChoisircolaborateur"> Choisir un colaborateur  </label>
+      <select id="inputChoisircolaborateur"  [ngModel]="collaborateur" class='form-control'  #myselect (change)="Collaborateurselected(myselect.value,idTach)"  >
+        <option *ngFor="let co of collaborateurs" [value]="co.codeCollaborateur" >{{co.nom}} {{co.prenom}}</option>
+
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="v">Volume horaire </label>
+      <input name="label" id="v" type="number" class="form-control" [(ngModel)]="affectation.vhT">
+    </div>
+    <div class="alert alert-primary" *ngIf="resultat==true && result==3">le collaborateur dépasse la moyenne d'horaire qu'il doit travaillé</div>
+    <div class="alert alert-warning" *ngIf="resultat==true && result==-1">le nombre de collaborateur affecté est dépasse le nombre total des collaborateurs travaillé dans ce projet</div>
+    <div class="alert alert-danger" *ngIf="resultat==true && result==2">nombre d'horaire donnée depasse le volume horaire resté pour cette tache</div>
+    <div class="alert alert-dark" *ngIf="resultat==true && result==-2">nombre d'horaire donnée depasse le volume horaire de cette tache</div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-success btn-block" (click)="affectationCollaboratteur()" [disabled]="!validateaffectation()">
+      <i class="fa fa-send-o"> Affecter</i>
+    </button>
+  </div>
+</div>
+</div>
+<div class="col-md-9 mx-auto">
+
+<div class="card-body " *ngIf="l==true">
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <h5 class="card-title"> <span class="btn btn-dark">Listes des collaborateurs travaillés dans cette tache</span></h5>
+    </div>
+    <div class="col-md-3 mx-auto text-right">
+      <button class="btn btn-warning btn-sm" (click)="t=!t"><i class="fa fa-plus"></i> Nouvelle affectation</button>
+    </div>
+  </div>
+  <table class="table table-dark table-bordered table-hove" *ngIf="lists.length!=0">
+    <thead>
+    <tr>
+      <td class="bg-warning" colspan="2" style="text-align: center;">{{intitule}}</td>
+    </tr>
+
+    <th style="text-align: center;">Collaborateur</th>
+    <th style="text-align: center;">Nombre d'heure travaillé</th>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let l of lists">
+      <td style="text-align: center">{{l.collaborateur.nom}} {{l.collaborateur.prenom}}</td>
+      <td style="text-align: center">{{l.vhT}} Heurs</td>
+    </tr>
+    </tbody>
+  </table>
+  <table class="table table-dark table-bordered table-hove" *ngIf="lists.length==0">
+    <thead>
+    <tr>
+      <td class="bg-warning" colspan="2" style="text-align: center;">{{intitule}}</td>
+    </tr>
+
+    <th style="text-align: center;">Collaborateur</th>
+    <th style="text-align: center;">Nombre d'heure travaillé</th>
+    </thead>
+    <tbody>
+
+    <tr >
+      <td colspan="2" style="text-align: center">Cette tache pas encors affecté à aucun collaborateur</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>

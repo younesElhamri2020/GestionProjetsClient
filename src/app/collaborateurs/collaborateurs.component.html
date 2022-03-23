@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <h4>Liste Collaborateurs</h4>
+    </div>
+    <div class="col-md-3 mx-auto text-right">
+      <button class="btn btn-dark btn-sm" (click)="showForm = !showForm" ><i class="fa fa-plus"></i> Nouveau collaborateur</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="showForm">
+    <div class="col-md-10 mx-auto">
+
+      <div class="card">
+        <div class="card-header">
+          Ajouter un Collaborateur
+        </div>
+        <div class="card-body">
+          <div class="form-group ">
+            <label for="code"> Code Collaborateur:</label>
+            <input id="code" type="text" class="form-control" [(ngModel)]="collaborateur.codeCollaborateur">
+          </div>
+          <div class="form-group">
+            <label for="nom"> Nom:</label>
+            <input id="nom" type="text" class="form-control" [(ngModel)]="collaborateur.nom">
+          </div>
+          <div class="form-group ">
+            <label for="prenom"> Prenom:</label>
+            <input id="prenom" type="text" class="form-control" [(ngModel)]="collaborateur.prenom">
+          </div>
+
+            <div class="col-md-10 mx-auto">
+          <div class="card">
+            <div class="card-header text-center bg-success">
+              <i class="fa fa-check-circle"></i> Choisir les competences de colabborateur
+            </div> <br>
+            <div class="card-body">
+
+              <div class="form-group" >
+                <div class="row ">
+                  <div class="col-md-12 mx-auto">
+                    <ul class="list-group">
+                      <li *ngFor="let m of competences" class="list-group-item d-flex justify-content-between align-items-center">
+                        {{m.designation}}
+                        <button (click)="Taskasselected(m.designation) "  class="btn btn-warning brnt-sm">
+                          <i class="fa fa-plus-circle"></i>
+                        </button>
+
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div><br>
+            <div class="col-md-9 mx-auto">
+
+                <div class="card-body"  *ngIf=" collaborateur.collaborateurCompetences.length!=0">
+
+                  <table class="table table-striped table-dark table-hover ">
+                    <thead>
+                    <th>Les competences choisies </th>
+                    <th>Action</th>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let c of collaborateur.collaborateurCompetences ">
+
+                      <td>{{c.competence.designation}}</td>
+                      <td>
+
+                        <button class="btn btn-danger " (click)="TaskasAnulle(c.competence.designation)" ><i class="fa fa-remove"></i></button>
+                      </td>
+
+                    </tr>
+
+                    </tbody>
+                  </table>
+
+
+                </div>
+
+
+
+           <br>
+            </div>
+
+          </div>
+            </div>
+
+      </div>
+        <div class="card-footer">
+          <button *ngIf="!editForm" class="btn btn-info btn-block" (click)="save()"><i class="fa fa-send-o"></i> save</button>
+          <button *ngIf="editForm" class="btn btn-warning btn-block" (click)="update()"><i class="fa fa-refresh"></i> Update</button>
+        </div>
+    </div>
+  </div></div>
+  <div class="row" *ngIf="!showForm">
+    <div class="col-md-12 mx-auto"> <br>
+
+          <table class="table table-dark table-bordered table-hover" *ngIf="collaborateurs.length!=0">
+            <thead>
+            <th style="width:20%;"><i class="fa fa-codepen"></i> Code Collaborateur</th>
+            <th><i class="fa fa-user-circle"></i> Nom</th>
+            <th><i class="fa fa-user"></i> Prenom</th>
+            <th class=" text-center"><i class="fa fa-check"></i> Actions</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cl of collaborateurs " class="bg-dark">
+              <td style="width:10%;">{{cl.codeCollaborateur}}</td>
+              <td>{{cl.nom}}</td>
+              <td>{{cl.prenom}}</td>
+              <td class=" text-center">
+
+                <button class="btn btn-info" (click)="edit(cl.codeCollaborateur)"><i class="fa fa-edit"></i></button>
+                <button class="btn btn-danger " (click)="delete(cl.idCollaborateur)"><i class="fa fa-trash"></i></button>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+      <table class="table table-dark table-bordered table-hover" *ngIf="collaborateurs.length==0">
+        <thead>
+        <th style="width:20%">Code Collaborateur</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th class=" text-center">Actions</th>
+        </thead>
+        <tbody>
+        <tr >
+          <td  colspan="4" style="text-align: center">n'existe aucune collaborateur cliquer sur nouveau collaborateur pour ajouter des collaborateurs</td>
+
+        </tr>
+
+        </tbody>
+      </table>
+
+
+    </div>
+  </div> <br>
+
+</div>
